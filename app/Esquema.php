@@ -8,5 +8,5 @@ class Esquema extends Model
 {
 	protected $guarded = [];
 	
-    protected $primaryKey = 'esq_id';
+    #protected $primaryKey = 'esq_id';
 }

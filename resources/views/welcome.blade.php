@@ -85,12 +85,12 @@
 
                 <div class="row">
                     {{-- <a href="/generate">Generar</a> --}}
-                    <form action="{{ url('/generate') }}" method="post">
+                    <form action="/generate" method="post">
                         {{ csrf_field() }}
                         <label for="esq">Esquema: </label>
                         <select name="esq">
                             @foreach ($esquema as $esq)
-                                <option value="{{ $esq->esq_id }}">{{ $esq->esq_name }} {{ $esq->esq_id }}</option>
+                                <option value="{{ $esq->esq_id }}">{{ $esq->esq_name }}</option>
                             @endforeach
                         </select>
                         <input type="submit" value="Generar">

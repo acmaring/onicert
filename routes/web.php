@@ -27,6 +27,8 @@ Route::post('/admin/save','AdminController@guardarModificacion');
 
 Route::post('/admin/erase','AdminController@borrarPregunta');
 
+Route::post('/admin/validate','PagesController@esqComp');
+
 #Route::post('/admin/show','AdminController@mostrarPregunta')#;
 
 Auth::routes();

@@ -71,5 +71,7 @@
             @yield('content')
         </main>
     </div>
+{{-- JQery --}}
+    <script src="{{ asset('js/jquery-3.3.1.js') }}" defer></script>
 </body>
 </html>

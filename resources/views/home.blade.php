@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <a href="/admin">admin</a>
                 </div>
             </div>
         </div>
