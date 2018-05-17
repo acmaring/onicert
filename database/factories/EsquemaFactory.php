@@ -8,6 +8,9 @@ $factory->define(App\Esquema::class, function (Faker $faker) {
         'esq_name' => $faker->word,
         #'esq_parent' => $faker->numberBetween($min=0, $max=3),
         'esq_parent' => 0,
-        'esq_cant' => $faker->numberBetween($min=1, $max=30)
+        'esq_cant' => $faker->numberBetween($min=1, $max=30),
+        'esq_version' => 1,
+        'esq_vigencia' => date(),
+        'esq_code' => 1
     ];
 });
