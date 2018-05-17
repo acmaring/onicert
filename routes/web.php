@@ -15,6 +15,10 @@ Route::get('/', 'PagesController@home');
 
 Route::post('/generate','PagesController@generarExamen');
 
+Route::get('/generate/word', 'PagesController@generarWordPregunta');
+
+Route::get('/generate/answer', 'PagesController@generarWordRespuesta');
+
 Route::get('/admin', 'PagesController@admin');
 
 Route::post('/admin/create','AdminController@crearPregunta');

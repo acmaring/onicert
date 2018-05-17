@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Respuesta;
+use App\Pregunta;
+use App\Competencia;
+use App\Esquema;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +27,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $esquema = Esquema::all();
+        
+        return view('welcome',[
+            'esquema' => $esquema
+        ]);
+        // return view('home');
     }
 }

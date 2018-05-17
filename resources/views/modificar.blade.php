@@ -20,6 +20,17 @@
                             <input type="hidden" name="id" value="{{ $pre->pre_id }}">
                             <input type="text" name="pregunta" value="{{ $pre->pre_content }}">
                             <br>
+                            <p>cambiar esquema 
+                            @foreach ($competencia as $com)
+                                @if ($pre->pre_com_id == $com->com_id)
+                                    @foreach ($esquema as $esq)
+                                        @if ($com->com_esq_id == $esq->esq_id)
+                                            {{ $esq->esq_name }}
+                                        @endif
+                                    @endforeach
+                                @endif
+                            @endforeach
+                            a </p>
                             <label for="esquema">Esquema :</label>
                             <select id="esquema" name="esquema" data-url="{{  url('/admin/validate') }}">
                                 <option selected disabled>seleccionar</option>

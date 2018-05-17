@@ -28,6 +28,9 @@
 						@endif
 					@endforeach
 				@endforeach
+		   	<a href="{{ url('/generate/word?pre_doc='.$pregunta_doc) }}">guardar word</a>
+		   	<a href="{{ url('/generate/answer?res_doc='.$respuesta_doc) }}">guardar respuestas</a>
+		   	<a href="{{ url('/') }}">volver</a>
 		@else
 			<a href="{{ route('login') }}">Login</a>
            	<a href="{{ route('register') }}">Register</a>

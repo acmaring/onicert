@@ -21,6 +21,9 @@ class CreateEsquemasTable extends Migration
             $table->string('esq_name');
             $table->string('esq_parent');
             $table->integer('esq_cant');
+            $table->integer('esq_version');
+            $table->datetime('esq_vigencia');
+            $table->string('esq_code');
             $table->primary('esq_id');
 
             $table->timestamps();

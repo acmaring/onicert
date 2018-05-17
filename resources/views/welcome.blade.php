@@ -1,4 +1,7 @@
-<!doctype html>
+@extends('layouts.app')
+
+@section('content')
+{{-- <!doctype html>
 <html lang="{{ app()->getLocale() }}">
     <head>
         <meta charset="utf-8">
@@ -64,62 +67,64 @@
             }
         </style>
     </head>
-    <body>
+    <body> --}}
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
+
+                         <div class="content">
+
+                            <div class="row">
+                                <a href="/admin">admin</a>
+                            </div>
+
+                            <div class="row">
+                                {{-- <a href="/generate">Generar</a> --}}
+                                <form action="/generate" method="post">
+                                    {{ csrf_field() }}
+                                    <label for="esq">Esquema: </label>
+                                    <select name="esq">
+                                        @foreach ($esquema as $esq)
+                                            <option value="{{ $esq->esq_id }}">{{ $esq->esq_name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <input type="submit" value="Generar">
+                                </form>
+                            </div>
+
+                            {{-- <div class="title m-b-md">
+                                Laravel
+                            </div> --}}
+
+                            <!-- <div>
+                                <form action="" method="">
+                                    
+                                    <label>Pregunta</label>
+                                    <input type="text" name="question">
+                                    <select>Esquema</select>
+                                    <option>1</option>
+
+                                </form>
+                            </div> -->
+
+                            {{-- <div class="links">
+                                <a href="https://laravel.com/docs">Documentation</a>
+                                <a href="https://laracasts.com">Laracasts</a>
+                                <a href="https://laravel-news.com">News</a>
+                                <a href="https://forge.laravel.com">Forge</a>
+                                <a href="https://github.com/laravel/laravel">GitHub</a>
+                            </div> --}}
+                        </div>
                     @else
                         <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
                     @endauth
                 </div>
             @endif
 
-            <div class="content">
-
-                <div class="row">
-                    <a href="/admin">admin</a>
-                </div>
-
-                <div class="row">
-                    {{-- <a href="/generate">Generar</a> --}}
-                    <form action="/generate" method="post">
-                        {{ csrf_field() }}
-                        <label for="esq">Esquema: </label>
-                        <select name="esq">
-                            @foreach ($esquema as $esq)
-                                <option value="{{ $esq->esq_id }}">{{ $esq->esq_name }}</option>
-                            @endforeach
-                        </select>
-                        <input type="submit" value="Generar">
-                    </form>
-                </div>
-
-                {{-- <div class="title m-b-md">
-                    Laravel
-                </div> --}}
-
-                <!-- <div>
-                    <form action="" method="">
-                        
-                        <label>Pregunta</label>
-                        <input type="text" name="question">
-                        <select>Esquema</select>
-                        <option>1</option>
-
-                    </form>
-                </div> -->
-
-                {{-- <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div> --}}
-            </div>
+           
         </div>
-    </body>
-</html>
+{{--     </body>
+</html> --}}
+@endsection
