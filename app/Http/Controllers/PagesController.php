@@ -25,11 +25,6 @@ class PagesController extends Controller
     	$esquema = Esquema::all();
     	$competencia = Competencia::all();
 
-    	/*foreach ($esquemas as $esquema) {
-    		
-    	}*/
-    	#dd($esquema);
-
     	return view('admin',[
     		'esquema' => $esquema,
     		'competencia' => $competencia
@@ -45,21 +40,16 @@ class PagesController extends Controller
         $pregunta_total = [];
 
         $esquema = Esquema::where('esq_id',$request->input('esq'))->get();
-        #dd($esquema);
+        
         
         $competencia = Competencia::where('com_esq_id',$request->input('esq'))->get();
 
         $rand_restrict = rand(1, 2);
 
-        // dd($competencia[1]->com_id);
-
         foreach ($competencia as $com) {
             #$pregunta = Pregunta::where('pre_com_id', $com->com_id)->inRandomOrder()->take($com->com_cant)->get();
             array_push($pregunta, Pregunta::where('pre_com_id', $com->com_id)->whereIn('pre_restrict',[0,$rand_restrict])->inRandomOrder()->take($com->com_cant)->get());
         }
-        #dd($pregunta);
-        // dd($pregunta[0]->get(0)->pre_id);
-        // dd($pregunta[0][0]->pre_id);
 
         foreach ($pregunta as $pre) {
             foreach ($pre as $key) {
@@ -86,25 +76,21 @@ class PagesController extends Controller
             
         }
 
-        #dd($pregunta_total);
-
         // $pregunta = Pregunta::where('pre_com_id', $competencia->com_id)->get();
 
         // $respuesta = Respuesta::where('res_pre_id', $pregunta->pre_id)->get();
 
         //Para generar documento en word
-
         $count = 0;
 
         $wordDoc = new \PhpOffice\PhpWord\PhpWord();
 
         //Para el encabezado
-
         $seccion = $wordDoc->addSection();
 
         $header = $seccion->addHeader();
-        // $header->firstPage();
 
+        //estilos tabla
         $fancyTableStyle = array('borderSize' => 6, 'borderColor' => '000000');
         $cellRowSpan = array('vMerge' => 'restart', 'valign' => 'center');
         $cellRowContinue = array('vMerge' => 'continue');
@@ -115,6 +101,7 @@ class PagesController extends Controller
         $spanTableStyleName = 'Colspan Rowspan';
         $wordDoc->addTableStyle($spanTableStyleName, $fancyTableStyle);
 
+        //Creacion de tabla
         $table = $header->addTable($spanTableStyleName);
         $table->addRow();
         $cell1 = $table->addCell(2000, $cellRowSpan);
@@ -136,11 +123,9 @@ class PagesController extends Controller
         $table->addRow();
         $table->addCell(null, $cellRowContinue);
         $table->addCell(4000, $cellRowSpan)->addText('Certificación de competencias profesionales en RETIE', null, $cellHCentered);
-        // $table->addCell(2000, $cellVCentered)->addText('D', null, $cellHCentered);
-        // $table->addCell(null, $cellRowContinue);
+
         $table->addCell(2000, $cellVCentered)->addText('codigo: '.$esquema[0]->esq_id, null, $cellHCentered);
 
-        // $paginas = $header->addPreserveText('Page {PAGE} of {NUMPAGES}');
 
         $table->addRow();
         $table->addCell(null, $cellRowContinue);
@@ -153,8 +138,6 @@ class PagesController extends Controller
         $footer = $seccion->addFooter();
         $footer->addImage(storage_path('footer.png'), array('width' => 50, 'height' => 50, 'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::RIGHT));
 
-        //dd($paginas);
-
         //seccion de preguntas y respuestas
         $seccion->addTextBreak();
 
@@ -165,9 +148,6 @@ class PagesController extends Controller
         $wordDoc->addParagraphStyle($paragraphStyleName, array('alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER, 'spaceAfter' => 100));
 
         $wordDoc->addTitleStyle(5, array('bold' => true), array('spaceAfter' => 240, 'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER));
-
-        //Nueva seccion
-        // $seccion = $wordDoc->addSection();
 
         //Preguntas y respuestas
         $seccion->addTitle('PREGUNTAS DE SELECCIÓN MÚLTIPLE CON ÚNICA RESPUESTA', 5);
@@ -233,17 +213,17 @@ class PagesController extends Controller
 
         $templateProcessor->saveAs(storage_path('Documento01.docx'));*/
 
+        //Para generar respuestas
         $count = 0;
 
         $respuestaDoc = new \PhpOffice\PhpWord\PhpWord();
 
         //Para el encabezado
-
         $seccion = $respuestaDoc->addSection();
 
         $header = $seccion->addHeader();
-        // $header->firstPage();
 
+        //Estilos de la tabla del encabezado
         $fancyTableStyle = array('borderSize' => 6, 'borderColor' => '000000');
         $cellRowSpan = array('vMerge' => 'restart', 'valign' => 'center');
         $cellRowContinue = array('vMerge' => 'continue');
@@ -291,8 +271,6 @@ class PagesController extends Controller
         //Footer
         $footer = $seccion->addFooter();
         $footer->addImage(storage_path('footer.png'), array('width' => 50, 'height' => 50, 'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::RIGHT));
-
-        //dd($paginas);
 
         $seccion->addTextBreak();
 
@@ -398,11 +376,6 @@ class PagesController extends Controller
             'respuesta_doc' => $respuesta_doc
         ]);
     
-
-        //Para las competencias
-        // while ( $i <= 10) {
-        //     # code...
-        // }
     }
 
     public function esqComp(Request $request){

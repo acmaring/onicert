@@ -160,10 +160,6 @@ class AdminController extends Controller
         $esquema = Esquema::all();
         $competencia = Competencia::all();
 
-        #$editar = $request->input('editar');
-
-        #dd($pregunta);
-
         return view('modificar',[
             'pregunta' => $pregunta,
             'respuesta' => $respuesta,
